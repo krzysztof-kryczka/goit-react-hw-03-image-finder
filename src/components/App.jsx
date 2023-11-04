@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { fetchPhoto } from './pixabay-api';
 import Searchbar from './SearchBar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Modal from './Modal/Modal';
 import Notiflix from 'notiflix';
 
 export class App extends Component {
@@ -49,12 +50,23 @@ export class App extends Component {
     }
   };
 
+  handleModalClose = () => {
+    this.setState({ isModalOpen: false, largeImageURL: '' });
+  };
+
+  handleModalOpen = url => {
+    this.setState({ isModalOpen: true, largeImageURL: url });
+  };
+
   render() {
-    const { images } = this.state;
+    const { images, largeImageURL, isModalOpen } = this.state;
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGallery cards={images} />
+        <ImageGallery cards={images} onShow={this.handleModalOpen} />
+        {isModalOpen && (
+          <Modal onClose={this.handleModalClose} image={largeImageURL} />
+        )}
       </div>
     );
   }

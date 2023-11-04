@@ -5,7 +5,7 @@ import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 
 export class ImageGallery extends Component {
   render() {
-    const { cards } = this.props;
+    const { cards, onShow } = this.props;
 
     return (
       <ul className={styles.ImageGallery}>
@@ -14,6 +14,7 @@ export class ImageGallery extends Component {
             key={id}
             webformatURL={webformatURL}
             largeImageURL={largeImageURL}
+            onShow={onShow}
             tags={tags}
           />
         ))}
@@ -23,6 +24,7 @@ export class ImageGallery extends Component {
 }
 
 ImageGallery.propTypes = {
+  onShow: PropTypes.func.isRequired,
   cards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
