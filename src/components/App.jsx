@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { fetchPhoto } from './pixabay-api';
 import Searchbar from './SearchBar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Loader from './Loader/Loader';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import Notiflix from 'notiflix';
@@ -66,11 +67,13 @@ export class App extends Component {
   };
 
   render() {
-    const { images, largeImageURL, totalHits, isModalOpen } = this.state;
+    const { images, largeImageURL, totalHits, isLoading, isModalOpen } =
+      this.state;
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery cards={images} onShow={this.handleModalOpen} />
+        {isLoading && <Loader />}
         {images.length !== 0 && images.length !== totalHits && (
           <Button onClick={this.handleButton} />
         )}
