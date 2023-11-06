@@ -1,113 +1,217 @@
-# React homework template
+English version
 
-Этот проект был создан при помощи
-[Create React App](https://github.com/facebook/create-react-app). Для знакомства
-и настройки дополнительных возможностей
-[обратись к документации](https://facebook.github.io/create-react-app/docs/getting-started).
+# Image Search Using Pixabay API
 
-## Создание репозитория по шаблону
+The project is a simple application for searching and browsing images using the
+public Pixabay API. The application is built with the React framework and
+utilizes components for easy image browsing and loading.
 
-Используй этот репозиторий организации GoIT как шаблон для создания репозитория
-своего проекта. Для этого нажми на кнопку `«Use this template»` и выбери опцию
-`«Create a new repository»`, как показано на изображении.
+# Pixabay API instructions
 
-![Creating repo from a template step 1](./assets/template-step-1.png)
+For HTTP requests, use a public image search service Pixabay. Register and get a
+private access key.
 
-На следующем шаге откроется страница создания нового репозитория. Заполни поле
-его имени, убедись что репозиторий публичный, после чего нажми кнопку
-`«Create repository from template»`.
+The URL string of the HTTP request.
 
-![Creating repo from a template step 2](./assets/template-step-2.png)
+https://pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12
 
-После того как репозиторий будет создан, необходимо перейти в настройки
-созданного репозитория на вкладку `Settings` > `Actions` > `General` как
-показано на изображении.
+Pixabay API supports pagination, by default the page parameter is set to 1. Let
+the response comes with 12 objects each, set to per_page. Don't Remember that
+when you search for a new keyword, you have to reset the value of page to 1.
 
-![Settings GitHub Actions permissions step 1](./assets/gh-actions-perm-1.png)
+The response from the api comes an array of objects in which you are only
+interested in the following properties.
 
-Проскролив страницу до самого конца, в секции `«Workflow permissions»` выбери
-опцию `«Read and write permissions»` и поставь галочку в чекбоксе. Это
-необходимо для автоматизации процесса деплоя проекта.
+id - a unique identifier
 
-![Settings GitHub Actions permissions step 2](./assets/gh-actions-perm-2.png)
+webformatURL - link to the small image for the list of cards
 
-Теперь у тебя есть личный репозиторий проекта, со структурой файлов и папок
-репозитория-шаблона. Далее работай с ним как с любым другим личным репозиторием,
-клонируй его себе на компьютер, пиши код, делай коммиты и отправляй их на
-GitHub.
+largeImageURL - link to the large image for the modal window
 
-## Подготовка к работе
+## Component Descriptions
 
-1. Убедись что на компьютере установлена LTS-версия Node.js.
-   [Скачай и установи](https://nodejs.org/en/) её если необходимо.
-2. Установи базовые зависимости проекта командой `npm install`.
-3. Запусти режим разработки, выполнив команду `npm start`.
-4. Перейди в браузере по адресу [http://localhost:3000](http://localhost:3000).
-   Эта страница будет автоматически перезагружаться после сохранения изменений в
-   файлах проекта.
+- **Searchbar**: Component for searching images. The component takes one prop
+  onSubmit - a function to pass the value of the iput When the form is
+  submitted. Creates a DOM element of the following structure.
 
-## Деплой
+  ```html
+  <header class="searchbar">
+    <form class="form">
+      <button type="submit" class="button">
+        <span class="button-label">Search</span>
+      </button>
 
-Продакшн версия проекта будет автоматически проходить линтинг, собираться и
-деплоиться на GitHub Pages, в ветку `gh-pages`, каждый раз когда обновляется
-ветка `main`. Например, после прямого пуша или принятого пул-реквеста. Для этого
-необходимо в файле `package.json` отредактировать поле `homepage`, заменив
-`your_username` и `your_repo_name` на свои, и отправить изменения на GitHub.
+      <input
+        class="input"
+        type="text"
+        autocomplete="off"
+        autofocus
+        placeholder="Search images and photos"
+      />
+    </form>
+  </header>
+  ```
 
-```json
-"homepage": "https://your_username.github.io/your_repo_name/"
+- **ImageGallery**: A list of image cards. Creates a DOM element of the
+  following structure.
+  ```html
+  <ul class="gallery">
+    <!-- Zbiór <li> z obrazami -->
+  </ul>
+  ```
+- **ImageGalleryItem**: A list item component with an image. Creates a DOM
+  element of the following structure.
+  ```html
+  <li class="gallery-item">
+    <img src="" alt="" />
+  </li>
+  ```
+- **Button**: Pressing the Load more button should load the next batch of Images
+  and rendered with the previous ones. The button should be rendered only when
+  there are some loaded images. If the image array is empty, the button is not
+  rendered.
+- **Loader**: Spinner component, displays while images are being loaded. Use
+  ready made component react-loader-spinner.
+- **Modal**: Modal window for displaying the large version of an image
+
+![App look](./assets/project_image_finder_pixabay.png)
+
+## Installation
+
+To run the Image Finder application locally, follow these steps:
+
+1. Clone the repository:
+
+   ```bash
+   git clone [repository-url]
+   ```
+
+2. Change to the project directory:
+
+   ```bash
+   cd [repository-name]
+
+   ```
+
+3. Install and start dependencies:
+   ```bash
+   npm install
+   npm run dev
+   npm start
+   ```
+
+The application should now be accessible in your web browser at
+http://localhost:3000.
+
+## How it works
+
+The main component is **App**, defined in **App.jsx**.
+
+Polish version
+
+# Wyszukiwanie obrazów przy użyciu interfejsu API Pixabay
+
+Projekt jest prostą aplikacją służącą do wyszukiwania i przeglądania zdjęć za
+pomocą publiczne API Pixabay. Aplikacja zbudowana jest w oparciu o framework
+React i wykorzystuje komponenty do łatwego przeglądania i ładowania obrazów.
+
+# Instrukcja Pixabay API
+
+Dla zapytań HTTP wykorzystaj publiczny serwis wyszukiwania obrazów Pixabay.
+Zarejestruj się i otrzymaj indywidualny klucz dostępu. Łańcuch URL zapytania
+HTTP.
+
+https://pixabay.com/api/?q=cat&page=1&key=your_key&image_type=photo&orientation=horizontal&per_page=12
+
+Pixabay API wspiera paginację, domyślnie parametr page jest równy 1. Niech w
+odpowiedzi przychodzi po 12 obiektów, ustanowionych w parametrze per_page. Nie
+zapomnij, że w trakcie wyszukiwania po słowie kluczu należy wyrzucać wartość
+page w 1.
+
+W odpowiedzi od api przychodzi tablica obiektów, w których ważne są dla ciebie
+tylko następujące właściwości.
+
+id - unikalny identyfikator
+
+webformatURL - odnośnik do miniatury dla listy obrazków
+
+largeImageURL - odnośnik do dużej wersji dla okna modalnego
+
+## Opisy komponentów
+
+- **Pasek wyszukiwania**: Komponent przyjmuje jeden props onSubmit - funkcję dla
+  przekazania wartości input przy submicie formularza.
+
+```html
+<header class="searchbar">
+  <form class="form">
+    <button type="submit" class="button">
+      <span class="button-label">Search</span>
+    </button>
+
+    <input
+      class="input"
+      type="text"
+      autocomplete="off"
+      autofocus
+      placeholder="Search images and photos"
+    />
+  </form>
+</header>
 ```
 
-Далее необходимо зайти в настройки GitHub-репозитория (`Settings` > `Pages`) и
-выставить раздачу продакшн версии файлов из папки `/root` ветки `gh-pages`, если
-это небыло сделано автоматически.
+- **ImageGallery**: Lista kart graficznych.
 
-![GitHub Pages settings](./assets/repo-settings.png)
-
-### Статус деплоя
-
-Статус деплоя крайнего коммита отображается иконкой возле его идентификатора.
-
-- **Желтый цвет** - выполняется сборка и деплой проекта.
-- **Зеленый цвет** - деплой завершился успешно.
-- **Красный цвет** - во время линтинга, сборки или деплоя произошла ошибка.
-
-Более детальную информацию о статусе можно посмотреть кликнув по иконке, и в
-выпадающем окне перейти по ссылке `Details`.
-
-![Deployment status](./assets/deploy-status.png)
-
-### Живая страница
-
-Через какое-то время, обычно пару минут, живую страницу можно будет посмотреть
-по адресу указанному в отредактированном свойстве `homepage`. Например, вот
-ссылка на живую версию для этого репозитория
-[https://goitacademy.github.io/react-homework-template](https://goitacademy.github.io/react-homework-template).
-
-Если открывается пустая страница, убедись что во вкладке `Console` нет ошибок
-связанных с неправильными путями к CSS и JS файлам проекта (**404**). Скорее
-всего у тебя неправильное значение свойства `homepage` в файле `package.json`.
-
-### Маршрутизация
-
-Если приложение использует библиотеку `react-router-dom` для маршрутизации,
-необходимо дополнительно настроить компонент `<BrowserRouter>`, передав в пропе
-`basename` точное название твоего репозитория. Слеш в начале строки обязателен.
-
-```jsx
-<BrowserRouter basename="/your_repo_name">
-  <App />
-</BrowserRouter>
+```html
+<ul class="gallery">
+  <!-- Zbiór <li> z obrazami -->
+</ul>
 ```
 
-## Как это работает
+- **ImageGalleryItem**: Składnik elementu listy z obrazem.
 
-![How it works](./assets/how-it-works.png)
+```html
+<li class="gallery-item">
+  <img src="" alt="" />
+</li>
+```
 
-1. После каждого пуша в ветку `main` GitHub-репозитория, запускается специальный
-   скрипт (GitHub Action) из файла `.github/workflows/deploy.yml`.
-2. Все файлы репозитория копируются на сервер, где проект инициализируется и
-   проходит линтинг и сборку перед деплоем.
-3. Если все шаги прошли успешно, собранная продакшн версия файлов проекта
-   отправляется в ветку `gh-pages`. В противном случае, в логе выполнения
-   скрипта будет указано в чем проблема.
+- **Button**: Po naciśnięciu przycisku Load more powinna ładować się kolejna
+  porcja obrazków i renderować się razem z poprzednimi. Przycisk powinien
+  renderować się tylko wtedy, gdy istnieje jakieś obrazek do wyświetlenia. Jeśli
+  tablica obrazków jest pusta, przycisk nie renderuje się.
+- **Loader**: Komponent spinnera, wyświetlany jest w czasie ładowania obrazków.
+  Wykorzystano gotowy komponent, react-loader-spinner.
+- **Modal**: Modalne okno do wyświetlania większej wersji obrazu
+
+![App look](./assets/project_image_finder_pixabay.png)
+
+## Instalacja
+
+Aby uruchomić aplikację Image Finder lokalnie, wykonaj następujące kroki:
+
+1. Sklonuj repozytorium:
+
+   ```bash
+   git clone [adres repozytorium]
+   ```
+
+2. Przejdź do katalogu projektu:
+
+   ```bash
+   cd [nazwa-repozytorium]
+   ```
+
+3. Zainstaluj i uruchom zależności:
+   ```bash
+   npm install
+   npm run dev
+   npm start
+   ```
+
+Aplikacja powinna być teraz dostępna w Twojej przeglądarce internetowej pod
+adresem http://localhost:3000.
+
+## Jak to działa
+
+Głównym komponentem jest **App** zdefiniowana w **App.jsx**.
