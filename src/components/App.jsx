@@ -7,7 +7,7 @@ import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import Notiflix from 'notiflix';
 
-export class App extends Component {
+class App extends Component {
   state = {
     search: '',
     currentPage: 0,
@@ -85,3 +85,5 @@ export class App extends Component {
     );
   }
 }
+
+export default App;
