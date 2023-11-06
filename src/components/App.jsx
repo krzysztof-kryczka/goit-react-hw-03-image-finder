@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { fetchPhoto } from './pixabay-api';
 import Searchbar from './SearchBar/SearchBar';
 import ImageGallery from './ImageGallery/ImageGallery';
+import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import Notiflix from 'notiflix';
 
@@ -24,6 +25,12 @@ export class App extends Component {
         this.fetchSearch(search);
       });
     }
+  };
+
+  handleButton = () => {
+    this.setState({ currentPage: this.state.currentPage + 1 }, () => {
+      this.fetchSearch(this.state.search);
+    });
   };
 
   fetchSearch = async valueSearch => {
@@ -59,11 +66,15 @@ export class App extends Component {
   };
 
   render() {
-    const { images, largeImageURL, isModalOpen } = this.state;
+    const { images, largeImageURL, totalHits, isModalOpen } = this.state;
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit} />
         <ImageGallery cards={images} onShow={this.handleModalOpen} />
+        {images.length !== 0 && images.length !== totalHits && (
+          <Button onClick={this.handleButton} />
+        )}
+
         {isModalOpen && (
           <Modal onClose={this.handleModalClose} image={largeImageURL} />
         )}
